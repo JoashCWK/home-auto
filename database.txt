@@ -1,6 +1,8 @@
 TOPICS
 name, sub_topic, pub_topic
 
+STATUS
+name, status
 
 DEVICES
 name, mac address, inp/out, desc

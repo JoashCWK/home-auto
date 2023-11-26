@@ -18,3 +18,7 @@ install_paho_mqtt:
 # https://learn.sparkfun.com/tutorials/setting-up-a-raspberry-pi-3-as-an-access-point/all
 setup_wap:
 	sudo apt -y install hostapd dnsmasq
+
+mariadb:
+	sudo apt install mariadb-server
+	sudo mysql_secure_installation
