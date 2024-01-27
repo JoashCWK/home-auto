@@ -1,10 +1,10 @@
 #include <mqtt/client.h>
+#include <vector>
 
-using namespace std;
 
 struct MQTT_Message{
-	string topic;
-	string payload;
+	std::string topic;
+	std::string payload;
 	bool isValid = false;
 };
 
@@ -12,9 +12,9 @@ class MQTT_Handler{
 	private:
 		mqtt::client client;
 	public:
-		MQTT_Handler(string, string);
-		void publish_message(string topic, string payload);
-		void subscribe_topics(string* topics, uint8_t num_topics);
+		MQTT_Handler(const std::string& ip, const std::string& id);
+		void publish_message(const std::string& topic, const std::string& payload);
+		void subscribe_topics(const std::vector<std::string>& topics, uint8_t num_topics);
 		struct MQTT_Message read_message();
 };
 

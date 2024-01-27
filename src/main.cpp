@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <array>
+#include <vector>
 
 using namespace std;
 
@@ -27,10 +28,10 @@ string exec_cmd(const char* cmd) {
 int main(){
 	MQTT_Handler handler("192.168.5.1:1883", "hub");
 	//handler.publish_message("topic2", "Hello from Class Implementation");
-	string topics[3] = {"topic1", "topic2", "topic3"};
+	std::vector<std::string> topics{"topic1", "topic2", "topic3"};
 	handler.subscribe_topics(topics, 3);
 
-	cout << exec_cmd("bash http/get_mac.sh room-light-1") << endl;
+	//cout << exec_cmd("bash http/get_mac.sh room-light-1") << endl;
 	
 	while(1){
 		struct MQTT_Message msg = handler.read_message();
