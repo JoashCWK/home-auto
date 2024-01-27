@@ -20,12 +20,19 @@ void MQTT_Handler::subscribe_topics(const std::vector<std::string>& topics, uint
 
 struct MQTT_Message MQTT_Handler::read_message(){
 	struct MQTT_Message msg;
-	mqtt::const_message_ptr ptr;
+
+	/*
 	if(client.try_consume_message(&ptr)){
 		msg.isValid = true;
 		msg.topic = ptr -> get_topic();
 		msg.payload = ptr -> get_payload_str();
 	}
+	*/
+
+	auto a = client.consume_message();
+	msg.isValid = true;
+	msg.topic = a->get_topic();
+	msg.payload = a->to_string();
 
 	return msg;
 }

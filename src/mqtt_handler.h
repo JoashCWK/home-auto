@@ -1,3 +1,6 @@
+#ifndef INCLUDED_MQTT_HANDLER
+#define INCLUDED_MQTT_HANDLER
+
 #include <mqtt/client.h>
 #include <vector>
 
@@ -18,4 +21,4 @@ class MQTT_Handler{
 		struct MQTT_Message read_message();
 };
 
-
+#endif

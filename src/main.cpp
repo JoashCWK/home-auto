@@ -31,7 +31,7 @@ int main(){
 	std::vector<std::string> topics{"topic1", "topic2", "topic3"};
 	handler.subscribe_topics(topics, 3);
 
-	//cout << exec_cmd("bash http/get_mac.sh room-light-1") << endl;
+	cout << exec_cmd("bash http/get_mac.sh room-light-1") << endl;
 	
 	while(1){
 		struct MQTT_Message msg = handler.read_message();
