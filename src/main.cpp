@@ -21,7 +21,7 @@ int main(){
 	MsgProcessor msgProcessor;
 
 	//handler.publish_message("topic2", "Hello from Class Implementation");
-	std::vector<std::string> topics{"addTopic", "test"};
+	std::vector<std::string> topics{"addTopic"};
 	mqttHandler.subscribe_topics(topics);
 
 	

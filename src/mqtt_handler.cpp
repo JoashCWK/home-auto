@@ -27,6 +27,7 @@ std::string exec_cmd(const std::string& cmd) {
 MqttHandler::MqttHandler(const std::string& ip, const std::string& id)
 	: client(ip, id, mqtt::create_options(MQTTVERSION_5)){
 	client.connect();
+	client.start_consuming();
 }
 
 void MqttHandler::publish_message(const std::string& topic, const std::string& payload){
@@ -39,12 +40,10 @@ void MqttHandler::subscribe_topics(const std::vector<std::string>& topics){
 	for(auto i : topics){
 		client.subscribe(i);
 	}
-	client.start_consuming();
 }
 
 void MqttHandler::subscribe_topic(const std::string& topic){
 	client.subscribe(topic);
-	client.start_consuming();
 }
 
 struct MqttMessage MqttHandler::read_message(){
