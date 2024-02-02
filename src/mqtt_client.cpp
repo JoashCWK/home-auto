@@ -1,4 +1,4 @@
-#include "mqtt_handler.h"
+#include "mqtt_client.h"
 #include <iostream>
 
 #include <stdlib.h>
@@ -24,29 +24,29 @@ std::string exec_cmd(const std::string& cmd) {
     return result;
 }
 
-MqttHandler::MqttHandler(const std::string& ip, const std::string& id)
+MqttClient::MqttClient(const std::string& ip, const std::string& id)
 	: client(ip, id, mqtt::create_options(MQTTVERSION_5)){
 	client.connect();
 	client.start_consuming();
 }
 
-void MqttHandler::publish_message(const std::string& topic, const std::string& payload){
+void MqttClient::publish_message(const std::string& topic, const std::string& payload){
 	mqtt::message_ptr ptr = mqtt::make_message(topic, "");
 	ptr->set_payload(payload);
 	client.publish(ptr);
 }
 
-void MqttHandler::subscribe_topics(const std::vector<std::string>& topics){
+void MqttClient::subscribe_topics(const std::vector<std::string>& topics){
 	for(auto i : topics){
 		client.subscribe(i);
 	}
 }
 
-void MqttHandler::subscribe_topic(const std::string& topic){
+void MqttClient::subscribe_topic(const std::string& topic){
 	client.subscribe(topic);
 }
 
-struct MqttMessage MqttHandler::read_message(){
+struct MqttMessage MqttClient::read_message(){
 	struct MqttMessage msg;
 
 	/*
@@ -65,7 +65,7 @@ struct MqttMessage MqttHandler::read_message(){
 	return msg;
 }
 
-void MqttHandler::process_message(const MqttMessage& msg){
+void MqttClient::process_message(const MqttMessage& msg){
 	std::cout << msg.topic << ": " << msg.payload << std::endl;
 	if(msg.topic == "addTopic"){
 		std::cout << exec_cmd("bash http/get_mac.sh " + msg.payload) << std::endl;
