@@ -25,51 +25,30 @@ std::string exec_cmd(const std::string& cmd) {
 }
 
 MqttClient::MqttClient(const std::string& ip, const std::string& id)
-	: client(ip, id, mqtt::create_options(MQTTVERSION_5)){
-	client.connect();
-	client.start_consuming();
+: s_client(ip, id, mqtt::create_options(MQTTVERSION_5)){
+	s_client.connect();
+	s_client.start_consuming();
 }
 
 void MqttClient::publish_message(const std::string& topic, const std::string& payload){
 	mqtt::message_ptr ptr = mqtt::make_message(topic, "");
 	ptr->set_payload(payload);
-	client.publish(ptr);
+	s_client.publish(ptr);
 }
 
 void MqttClient::subscribe_topics(const std::vector<std::string>& topics){
 	for(auto i : topics){
-		client.subscribe(i);
+		s_client.subscribe(i);
 	}
 }
 
 void MqttClient::subscribe_topic(const std::string& topic){
-	client.subscribe(topic);
+	s_client.subscribe(topic);
 }
 
 struct MqttMessage MqttClient::read_message(){
-	struct MqttMessage msg;
-
-	/*
-	if(client.try_consume_message(&ptr)){
-		msg.isValid = true;
-		msg.topic = ptr -> get_topic();
-		msg.payload = ptr -> get_payload_str();
-	}
-	*/
-
-	auto a = client.consume_message();
-	msg.isValid = true;
-	msg.topic = a->get_topic();
-	msg.payload = a->to_string();
-
-	return msg;
+	auto consumed_msg = s_client.consume_message();
+	return MqttMessage{consumed_msg->get_topic(), consumed_msg->to_string()};
 }
 
-void MqttClient::process_message(const MqttMessage& msg){
-	std::cout << msg.topic << ": " << msg.payload << std::endl;
-	if(msg.topic == "addTopic"){
-		std::cout << exec_cmd("bash http/get_mac.sh " + msg.payload) << std::endl;
-		subscribe_topic(msg.payload + "/task");
-		subscribe_topic(msg.payload + "/state");
-	}
-}
+

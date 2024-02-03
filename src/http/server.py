@@ -8,6 +8,7 @@ parser.add_argument('-n', '--name', dest='name', action='store')
 args = parser.parse_args()
 
 host = "192.168.5.1"
+host = "localhost"
 port = 5000
 
 class Server(BaseHTTPRequestHandler):
