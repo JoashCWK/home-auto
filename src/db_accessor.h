@@ -16,7 +16,6 @@ class DbAccessor{
 		sql::Driver* s_driver;
 		std::unique_ptr<sql::Connection> s_connection;
 		std::unique_ptr<sql::Statement> s_statement;
-		std::unique_ptr<sql::ResultSet> s_result;
 };
 
 #endif
