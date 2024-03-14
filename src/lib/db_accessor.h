@@ -11,7 +11,7 @@ class DbAccessor{
 	public:
 		DbAccessor(std::string ip_address, std::string user, std::string password);
 		void add_device(std::string mac_address, std::string mqtt_topic, bool is_output, bool is_analog);
-		void add_schedule(, , bool is_output, bool is_analog);
+		void add_schedulestd();
 	
 	private:
 		sql::Driver* s_driver;

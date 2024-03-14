@@ -6,12 +6,12 @@
 
 class EventHandler{
 	public:
-		EventHandler(MqttClient* mqttClient, MsgProcessor* msgProcessor);
+		EventHandler(MqttClient* mqttClient, MsgProcessor& msgProcessor);
 		void run();
 
 	private:
 		MqttClient* s_mqttClient;
-		MsgProcessor* s_msgProcessor;
+		MsgProcessor s_msgProcessor;
 };
 
 
