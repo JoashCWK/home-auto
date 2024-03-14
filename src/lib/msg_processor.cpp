@@ -22,7 +22,8 @@ MsgProcessor::MsgProcessor(DbAccessor& dbAccessor)
 MqttMessage MsgProcessor::process(const MqttMessage& msg){
 	if(msg.topic == "setDevice")
 	{
-		std::string mac_address = exec_cmd("bash http/get_mac.sh " + msg.payload);
+		std::cout << "Set Device Message Received" << std::endl;
+		std::string mac_address = exec_cmd("bash ../http/get_mac.sh " + msg.payload);
 		
 		std::cout << "To add to database and publish success response: " << mac_address << std::endl;
 

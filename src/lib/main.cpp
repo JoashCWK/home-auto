@@ -19,10 +19,11 @@ using namespace std;
 
 
 int main(){
-	MqttClient mqttClient{"127.0.0.1", "hub"};
+	MqttClient mqttClient{"localhost", "hub"};
 	DbAccessor dbAccessor("localhost", "root", "JwKc2000");
 	MsgProcessor msgProcessor(dbAccessor);
 	//handler.publish_message("topic2", "Hello from Class Implementation");
+	std::cout << "Entering" << std::endl;
 	EventHandler eventHandler(&mqttClient, msgProcessor);
 	eventHandler.run();
 

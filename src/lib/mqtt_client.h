@@ -14,6 +14,7 @@ class MqttClient{
 	public:
 		MqttClient(const std::string& ip, const std::string& id);
 		void publish_message(const std::string& topic, const std::string& payload);
+		void publish_message(const MqttMessage& message);
 		void subscribe_topics(const std::vector<std::string>& topics);
 		void subscribe_topic(const std::string& topic);
 		struct MqttMessage read_message();

@@ -23,6 +23,10 @@ void MqttClient::publish_message(const std::string& topic, const std::string& pa
 	s_client.publish(ptr);
 }
 
+void MqttClient::publish_message(const MqttMessage& message){
+	MqttClient::publish_message(message.topic, message.payload);
+}
+
 void MqttClient::subscribe_topics(const std::vector<std::string>& topics){
 	for(auto i : topics){
 		s_client.subscribe(i);
@@ -34,7 +38,10 @@ void MqttClient::subscribe_topic(const std::string& topic){
 }
 
 struct MqttMessage MqttClient::read_message(){
-	auto consumed_msg = s_client.consume_message();
+	mqtt::const_message_ptr consumed_msg;
+	while(!consumed_msg){
+		consumed_msg = s_client.consume_message();
+	}
 	return MqttMessage{consumed_msg->get_topic(), consumed_msg->to_string()};
 }
 
