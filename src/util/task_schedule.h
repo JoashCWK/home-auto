@@ -1,3 +1,6 @@
+#ifndef INCLUDED_TASK_SCHEDULE
+#define INCLUDED_TASK_SCHEDULE
+
 #include "datetime.h"
 
 enum Repetition{
@@ -14,3 +17,5 @@ struct TaskSchedule{
 	Repetition repetition;
 	MqttMessage mqttMessage;
 }
+
+#endif
