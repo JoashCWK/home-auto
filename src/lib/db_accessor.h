@@ -20,6 +20,6 @@ class DbAccessor{
 		std::unique_ptr<sql::Connection> s_connection;
 };
 
-std::string ADD_DEVICE_QUERY = "INSERT INTO devices (MacAddress, MqttTopic, Type, IsAnalog) VALUES (?, ?, ?, ?)";
+const std::string ADD_DEVICE_QUERY = "INSERT INTO devices (MacAddress, MqttTopic, Type, IsAnalog) VALUES (?, ?, ?, ?)";
 
 #endif
