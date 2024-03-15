@@ -1,22 +1,27 @@
-class DateTime{
-	public:	
-		DateTime();
-		DateTime(int year, int month, int day, int hour, int minute, int second);
-		DateTime(int year, int month, int day);
-		DateTime(std::string string_dt);
+#ifndef INCLUDED_DATETIME
+#define INCLUDED_DATETIME
 
-		void setYear(int year);
-		void setMonth(int month);
-		void setDay(int day);
-		void setHour(int hour);
-		void setMinute(int minute);
-		void setSecond(int second);
-
+#include <string>
+class Date{
+	public:
+		Date();
+		Date(int year, int month, int day);
+		static Date from_string(std::string date);
 	private:
-		s_year;
-		s_month;
-		s_day;
-		s_hour;
-		s_minute;
-		s_second;
-}
+		int s_year;
+		int s_month;
+		int s_day;
+};
+
+class Time{
+	public:
+		Time();
+		Time(int hours, int minutes, int seconds);
+		static Time from_string(std::string time);
+	private:
+		int s_hours;
+		int s_minutes;
+		int s_seconds;
+};
+
+#endif
