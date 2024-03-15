@@ -1,7 +1,7 @@
 #ifndef INCLUDED_MSG_PROCESSOR
 #define INCLUDED_MSG_PROCESSOR
 
-#include "mqtt_message.h"
+#include "../util/mqtt_message.h"
 #include "db_accessor.h"
 
 class MsgProcessor{

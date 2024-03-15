@@ -7,16 +7,19 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
+#include "../util/device_info.h"
+
 class DbAccessor{
 	public:
 		DbAccessor(std::string ip_address, std::string user, std::string password);
-		void add_device(std::string mac_address, std::string mqtt_topic, bool is_output, bool is_analog);
+		void add_device(const DeviceInfo& device);
 		void add_schedulestd();
 	
 	private:
 		sql::Driver* s_driver;
 		std::unique_ptr<sql::Connection> s_connection;
-		std::unique_ptr<sql::Statement> s_statement;
 };
+
+std::string ADD_DEVICE_QUERY = "INSERT INTO devices (MacAddress, MqttTopic, Type, IsAnalog) VALUES (?, ?, ?, ?)";
 
 #endif
