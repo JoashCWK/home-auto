@@ -1,5 +1,4 @@
 #include "mqtt_client.h"
-#include "mqtt_message.h"
 #include "msg_processor.h"
 #include "db_accessor.h"
 #include "event_handler.h"

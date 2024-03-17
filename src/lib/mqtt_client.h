@@ -1,7 +1,7 @@
 #ifndef INCLUDED_MQTT_CLIENT
 #define INCLUDED_MQTT_CLIENT
 
-#include "mqtt_message.h"
+#include "../util/mqtt_message.h"
 #include <mqtt/client.h>
 #include <vector>
 
