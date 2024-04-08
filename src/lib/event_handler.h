@@ -6,12 +6,12 @@
 
 class EventHandler{
 	public:
-		EventHandler(MqttClient* mqttClient, MsgProcessor& msgProcessor);
+		EventHandler(std::unique_ptr<MqttClient> mqttClient, std::unique_ptr<MsgProcessor> msgProcessor);
 		void run();
 
 	private:
-		MqttClient* s_mqttClient;
-		MsgProcessor s_msgProcessor;
+		const std::unique_ptr<MqttClient> s_mqttClient;
+		const std::unique_ptr<MsgProcessor> s_msgProcessor;
 };
 
 

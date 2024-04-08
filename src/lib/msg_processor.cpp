@@ -16,7 +16,7 @@ std::string exec_cmd(const std::string& cmd) {
     return result;
 }
 
-MsgProcessor::MsgProcessor(DbAccessor& dbAccessor)
+MsgProcessor::MsgProcessor(std::unique_ptr<DbAccessor> dbAccessor)
 : s_dbAccessor{std::move(dbAccessor)}{}
 
 MqttMessage MsgProcessor::process(const MqttMessage& msg){

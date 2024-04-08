@@ -6,11 +6,11 @@
 
 class MsgProcessor{
 	public:
-		MsgProcessor(DbAccessor& dbAccessor);
+		MsgProcessor(std::unique_ptr<DbAccessor> dbAccessor);
 		MqttMessage process(const MqttMessage& msg);
 
 	private:
-		DbAccessor s_dbAccessor;
+		const std::unique_ptr<DbAccessor> s_dbAccessor;
 };
 
 #endif

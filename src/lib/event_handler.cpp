@@ -5,8 +5,11 @@
 #include <iostream>
 
 
-EventHandler::EventHandler(MqttClient* mqttClient, MsgProcessor& msgProcessor):
-s_mqttClient{mqttClient}, s_msgProcessor{std::move(msgProcessor)}{}
+EventHandler::EventHandler(std::unique_ptr<MqttClient> mqttClient, std::unique_ptr<MsgProcessor> msgProcessor)
+: s_mqttClient{std::move(mqttClient)}
+, s_msgProcessor{std::move(msgProcessor)}
+{
+}
 
 void EventHandler::run(){
 	std::vector<std::string> topics = {"setDevice", "schedule"};
@@ -15,7 +18,7 @@ void EventHandler::run(){
 	while(1){
 		auto msg = s_mqttClient->read_message();
 		std::cout << "Read Message (" << msg.topic << ": " << msg.payload << ")" << std::endl;
-		MqttMessage response = s_msgProcessor.process(msg);
+		MqttMessage response = s_msgProcessor->process(msg);
 		s_mqttClient->publish_message(response);
 	}
 }
