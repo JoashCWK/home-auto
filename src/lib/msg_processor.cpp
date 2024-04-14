@@ -27,10 +27,7 @@ MqttMessage MsgProcessor::process(const MqttMessage& msg){
 
 		std::cout << "To add to database and publish success response: " << mac_address << std::endl;
 
-		MqttMessage m;
-		m.topic = "addTopicResponse";
-		m.payload = "success";
-		return m;
+		return MqttMessage("setDeviceResponse", "success");
 	}
 	else if(msg.topic == "getDevices")
 	{
@@ -46,6 +43,6 @@ MqttMessage MsgProcessor::process(const MqttMessage& msg){
 
 	}
 
-	return MqttMessage();
+	return MqttMessage("", "");
 
 }

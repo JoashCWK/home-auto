@@ -4,8 +4,9 @@
 #include <string>
 
 struct MqttMessage{
-	std::string topic = "";
-	std::string payload = "";
+	MqttMessage(const std::string& topic, const std::string& payload);
+	std::string topic;
+	std::string payload;
 };
 
 #endif
