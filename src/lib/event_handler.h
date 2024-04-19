@@ -8,10 +8,10 @@
 class EventHandler: public virtual mqtt::callback
 {
 	public:
-		EventHandler(std::unique_ptr<MsgProcessor> msgProcessor, mqtt::async_client& asyncClient);
+		EventHandler(std::unique_ptr<MsgProcessor> msgProcessor, std::unique_ptr<mqtt::async_client> asyncClient);
 
 	private:
-		mqtt::async_client& s_mqttAsyncClient;
+		std::unique_ptr<mqtt::async_client> s_mqttAsyncClient;
 		const std::unique_ptr<MsgProcessor> s_msgProcessor;
 
 		void connected(const std::string& cause) override;
