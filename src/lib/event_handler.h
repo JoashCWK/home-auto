@@ -3,15 +3,24 @@
 
 #include "mqtt_client.h"
 #include "msg_processor.h"
+#include <mqtt/async_client.h>
 
-class EventHandler{
+class EventHandler: public virtual mqtt::callback
+{
 	public:
-		EventHandler(std::unique_ptr<MqttClient> mqttClient, std::unique_ptr<MsgProcessor> msgProcessor);
-		void run();
+		EventHandler(std::unique_ptr<MsgProcessor> msgProcessor, mqtt::async_client& asyncClient);
 
 	private:
-		const std::unique_ptr<MqttClient> s_mqttClient;
+		mqtt::async_client& s_mqttAsyncClient;
 		const std::unique_ptr<MsgProcessor> s_msgProcessor;
+
+		void connected(const std::string& cause) override;
+		void connection_lost(const std::string& cause) override{}
+
+		void message_arrived(mqtt::const_message_ptr msg) override;
+		void delivery_complete(mqtt::delivery_token_ptr token) override{}
+
+		std::vector<std::string> s_topics = {"setDevice", "schedule"};
 };
 
 

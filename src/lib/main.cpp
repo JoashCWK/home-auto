@@ -4,6 +4,7 @@
 #include "event_handler.h"
 
 #include <mqtt/client.h>
+#include <mqtt/async_client.h>
 
 #include <stdlib.h>
 #include <cstdio>
@@ -18,14 +19,20 @@ using namespace std;
 
 
 int main(){
-	std::unique_ptr<MqttClient> mqttClient{new MqttClient{"localhost", "hub"}};
+	//std::unique_ptr<MqttClient> mqttClient{new MqttClient{"localhost", "hub"}};
 
 	std::unique_ptr<DbAccessor> dbAccessor{new DbAccessor{"localhost", "root", "JwKc2000"}};
 	std::unique_ptr<MsgProcessor> msgProcessor{new MsgProcessor{std::move(dbAccessor)}};
+
+	mqtt::async_client asyncClient("localhost", "hub");
 	//handler.publish_message("topic2", "Hello from Class Implementation");
 	std::cout << "Entering" << std::endl;
-	EventHandler eventHandler(std::move(mqttClient), std::move(msgProcessor));
-	eventHandler.run();
+	EventHandler eventHandler(std::move(msgProcessor), asyncClient);
+	//eventHandler.run();
 
+	asyncClient.set_callback(eventHandler);
+	asyncClient.connect();
+
+	while(1);
 	std::cout << "Exiting" << std::endl;
 }
