@@ -19,30 +19,34 @@ std::string exec_cmd(const std::string& cmd) {
 MsgProcessor::MsgProcessor(std::unique_ptr<DbAccessor> dbAccessor)
 : s_dbAccessor{std::move(dbAccessor)}{}
 
-MqttMessage MsgProcessor::process(const MqttMessage& msg){
-	if(msg.topic == "setDevice")
+//MqttMessage MsgProcessor::process(const MqttMessage& msg){
+mqtt::const_message_ptr MsgProcessor::process(mqtt::const_message_ptr msg){
+	return process(msg->get_topic(), msg->to_string());
+}
+
+mqtt::const_message_ptr MsgProcessor::process(const std::string& topic, const std::string& payload){
+	if(topic == "setDevice")
 	{
 		std::cout << "Set Device Message Received" << std::endl;
-		std::string mac_address = exec_cmd("bash ../http/get_mac.sh " + msg.payload);
+		std::string mac_address = exec_cmd("bash ../http/get_mac.sh " + payload);
 
 		std::cout << "To add to database and publish success response: " << mac_address << std::endl;
 
-		return MqttMessage("setDeviceResponse", "success");
+		return mqtt::make_message("setDeviceResponse", "1");
 	}
-	else if(msg.topic == "getDevices")
+	else if(topic == "getDevices")
 	{
 
 	}
-	else if(msg.topic == "setSchedule")
+	else if(topic == "setSchedule")
 	{
 		
 	}
 
-	else if(msg.topic == "getSchedules")
+	else if(topic == "getSchedules")
 	{
 
 	}
 
-	return MqttMessage("", "");
-
+	return nullptr;
 }
