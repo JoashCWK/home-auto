@@ -1,25 +1,27 @@
 #include "event_handler.h"
-#include "../util/mqtt_message.h"
 
 #include <vector>
 #include <iostream>
 
 
-EventHandler::EventHandler(std::unique_ptr<MqttClient> mqttClient, std::unique_ptr<MsgProcessor> msgProcessor)
-: s_mqttClient{std::move(mqttClient)}
-, s_msgProcessor{std::move(msgProcessor)}
+EventHandler::EventHandler(std::unique_ptr<MsgProcessor> msgProcessor, std::unique_ptr<mqtt::async_client> asyncClient)
+: s_msgProcessor(std::move(msgProcessor))
+, s_mqttAsyncClient(std::move(asyncClient))
 {
+	s_mqttAsyncClient->set_callback(*this);
+	s_mqttAsyncClient->connect();
 }
 
-void EventHandler::run(){
-	std::vector<std::string> topics = {"setDevice", "schedule"};
-	s_mqttClient->subscribe_topics(topics);
-
-	while(1){
-		auto msg = s_mqttClient->read_message();
-		std::cout << "Read Message (" << msg.topic << ": " << msg.payload << ")" << std::endl;
-		MqttMessage response = s_msgProcessor->process(msg);
-		s_mqttClient->publish_message(response);
+void EventHandler::connected(const std::string& cause){
+	std::cout << "Connected to Mqtt Broker" << std::endl;
+	for(const std::string& i: s_topics){
+		s_mqttAsyncClient->subscribe(i, 1 /*QOS*/);
 	}
+}
+
+void EventHandler::message_arrived(mqtt::const_message_ptr msg){
+	std::cout << "Received Message (" << msg->get_topic() << ": " << msg->to_string() << ")" << std::endl;
+	mqtt::const_message_ptr response = s_msgProcessor->process(msg);
+	s_mqttAsyncClient->publish(response);
 }
 
