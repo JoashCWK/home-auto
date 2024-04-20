@@ -2,7 +2,6 @@
 #define INCLUDED_MSG_PROCESSOR
 
 #include "db_accessor.h"
-#include "../util/mqtt_message.h"
 #include <mqtt/async_client.h>
 
 class MsgProcessor{

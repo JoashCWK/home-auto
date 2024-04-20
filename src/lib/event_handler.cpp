@@ -1,5 +1,4 @@
 #include "event_handler.h"
-#include "../util/mqtt_message.h"
 
 #include <vector>
 #include <iostream>

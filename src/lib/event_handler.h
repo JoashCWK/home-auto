@@ -1,7 +1,6 @@
 #ifndef INCLUDED_EVENT_HANDLER
 #define INCLUDED_EVENT_HANDLER
 
-#include "mqtt_client.h"
 #include "msg_processor.h"
 #include <mqtt/async_client.h>
 
