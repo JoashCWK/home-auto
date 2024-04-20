@@ -7,11 +7,16 @@
 class EventHandler: public virtual mqtt::callback
 {
 	public:
-		EventHandler(std::unique_ptr<MsgProcessor> msgProcessor, std::unique_ptr<mqtt::async_client> asyncClient);
+		EventHandler(
+			const std::string& IPAddress,
+			const std::string& name,
+			const std::string& dbUsername,
+			const std::string& dbPassword
+		);
 
 	private:
-		std::unique_ptr<mqtt::async_client> s_mqttAsyncClient;
-		const std::unique_ptr<MsgProcessor> s_msgProcessor;
+		mqtt::async_client s_mqttAsyncClient;
+		MsgProcessor s_msgProcessor;
 
 		void connected(const std::string& cause) override;
 		void connection_lost(const std::string& cause) override{}
