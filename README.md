@@ -11,6 +11,7 @@ hosting the MQTT broker, database, and this subscription-and-shceduling service.
 The Pi also acts as a Wireless Access Point and Router for the network to ensure that the system is entirely self contained and independent.
 
 The high level system design is as such:
+![System Design](https://github.com/JoashCWK/home-auto/blob/main/home-auto_system-design.png)
 
 ### MQTT Broker
 The MQTT Broker acts as the middleware for intra-network communication between the devices, UI and subscription/scheduling service (further explained below).
