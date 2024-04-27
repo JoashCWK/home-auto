@@ -1,0 +1,8 @@
+HubConfiguration:
+	AsyncMqttClient:
+		IPAddress: "localhost"
+		Client: "hub"
+	DbAccessor:
+		IPAddress: "localhost"
+		Client: "root"
+		Password: "JwKc2000"

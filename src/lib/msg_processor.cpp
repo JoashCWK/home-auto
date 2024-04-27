@@ -16,10 +16,13 @@ std::string exec_cmd(const std::string& cmd) {
     return result;
 }
 
-MsgProcessor::MsgProcessor(std::unique_ptr<DbAccessor> dbAccessor)
-: s_dbAccessor{std::move(dbAccessor)}{}
+MsgProcessor::MsgProcessor(
+	const std::string& IPAddress,
+	const std::string& userName,
+	const std::string& password
+): s_dbAccessor(IPAddress, userName, password)
+{}
 
-//MqttMessage MsgProcessor::process(const MqttMessage& msg){
 mqtt::const_message_ptr MsgProcessor::process(mqtt::const_message_ptr msg){
 	return process(msg->get_topic(), msg->to_string());
 }
