@@ -1,0 +1,31 @@
+<xs:element name="SetDeviceRequest">
+	<xs:complexType>
+	<xs:sequence>
+		<xs:element name="configuredName" type="xs:string" minOccurs="0"/>
+		<xs:element name="cluster" type="xs:string"/>
+	</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="SetDeviceResponse">
+	<xs:complexType>
+	<xs:sequence>
+		<xs:element name="deviceName" type="xs:string"/>
+		<xs:element name="macAddress" type="xs:string" />
+		<xs:element name="deviceCode" type="xs:integer" />
+		<xs:element name="topic" type="xs:string" />
+		<xs:element name="deviceType" type="xs:string"/>
+		<xs:element name="isAnalog" type="xs:boolean" />
+	</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="ErrorResponse">
+	<xs:complexType>
+	<xs:sequence>
+		<xs:element name="code" type="xs:integer"/>
+		<xs:element name="message" type="xs:string"/>
+	</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
