@@ -4,10 +4,14 @@
 #include <string>
 
 struct DeviceInfo{
-	std::string mac_address;
-	std::string mqtt_topic;
-	bool is_output;
-	bool is_analog;
+	std::string configuredName;
+	std::string deviceName;
+	std::string macAddress;
+	std::string room;
+	std::string mqttTopic;
+	bool isOutput;
+	bool isAnalog;
+	int deviceCode;
 };
 
 #endif
