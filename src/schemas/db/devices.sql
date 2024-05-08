@@ -5,6 +5,6 @@ CREATE TABLE devices (
 	MacAddress varchar(255) NOT NULL,
 	DeviceType enum('output', 'input', 'both') NOT NULL,
 	IsAnalog boolean NOT NULL,
-	ClusterName varchar(255) NOT NULL,
+	Room varchar(255) NOT NULL,
 	PRIMARY KEY (MqttTopic)
 );
