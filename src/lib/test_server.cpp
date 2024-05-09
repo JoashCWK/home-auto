@@ -1,22 +1,19 @@
 #include <iostream>
 #include <boost/asio.hpp>
 
-using namespace boost::asio;
-using namespace boost::asio::ip;
-
 int main() {
-    io_service io;
+    boost::asio::io_service io;
 
     // Create an endpoint for accepting connections
-    tcp::endpoint endpoint(tcp::v4(), 8080);
+    boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), 8080);
 
     // Create and open a socket for accepting connections
-    tcp::acceptor acceptor(io, endpoint);
+    boost::asio::ip::tcp::acceptor acceptor(io, endpoint);
 
     std::cout << "Server started. Listening on port 8080..." << std::endl;
 
 	// Create a socket for the next incoming connection
-	tcp::socket socket(io);
+	boost::asio::ip::tcp::socket socket(io);
 
 	// Wait for and accept a new connection
 	acceptor.accept(socket);
