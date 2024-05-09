@@ -38,3 +38,6 @@ It then response with a return code to `setScheduleStatus`
 
 ### Database
 The database consists of two tables, `devices` and `schedules`.
+
+
+![App UI Design](https://github.com/JoashCWK/home-auto/blob/main/home-auto-app-design.png)
