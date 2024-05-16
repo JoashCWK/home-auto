@@ -37,18 +37,20 @@ bool DeviceServer::setupDevice(DeviceInfo& deviceInfo, std::string configuredNam
 	io.run();
 
 	if(hasConnection){
-		streambuf request;
-		read_until(socket, request, "\r\n\r\n");
+		streambuf request_buf;
+		read_until(socket, request_buf, "\r\n\r\n");
 
-		std::istream requestStream(&request);
-		std::string requestString;
-		std::getline(requestStream, requestString);
-		std::cout << requestString << std::endl;
+		std::string request = buffer_cast<const char*>(request_buf.data());
+		size_t pos = request.find("{");
+		std::string body = request.substr(pos);
+		std::cout << "Body: " << body << std::endl;
 
 		std::ostringstream oss;
-		std::string response = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\n\r\n";
-		oss << response << "configuredName=" << configuredName << "\nroom" << room;
-		write(socket, buffer(oss.str()));
+		std::string response = "HTTP/1.1 200 OK\r\nContent-Length: ";
+		oss << response << (int)(21 + configuredName.length() + room.length()) << "\r\n\r\nconfiguredName=" << configuredName << "&room=" << room;
+
+		boost::asio::write(socket, boost::asio::buffer(oss.str()));
+
 	}
 	socket.close();
 
@@ -58,6 +60,8 @@ bool DeviceServer::setupDevice(DeviceInfo& deviceInfo, std::string configuredNam
 
 int main(){
 	DeviceInfo d;
-	DeviceServer s(8080, 5);
-	std::cout << s.setupDevice(d, "Lights", "LivingRoom");	
+	DeviceServer s(8080, 10);
+	if(s.setupDevice(d, "Lights", "LivingRoom")){
+		std::cout << "Done!" << std::endl;
+	}
 }
