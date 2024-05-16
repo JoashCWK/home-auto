@@ -2,7 +2,7 @@
 	<xs:complexType>
 	<xs:sequence>
 		<xs:element name="configuredName" type="xs:string" minOccurs="0"/>
-		<xs:element name="cluster" type="xs:string"/>
+		<xs:element name="room" type="xs:string"/>
 	</xs:sequence>
 	</xs:complexType>
 </xs:element>
