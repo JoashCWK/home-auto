@@ -7,7 +7,7 @@ This is a subscription and scheduling management service for Home-Auto.
 Home-Auto is an MQTT-based, horizontally scalable system that aims to provide fully configurable home automation.
 
 At the core of it, a Raspberry Pi 3B+ is used as the central hub of the system,
-hosting the MQTT broker, database, and this subscription-and-shceduling service.
+hosting the MQTT broker, database, and this subscription-and-scheduling service.
 The Pi also acts as a Wireless Access Point and Router for the network to ensure that the system is entirely self contained and independent.
 
 The high level system design is as such:
@@ -39,5 +39,5 @@ It then response with a return code to `setScheduleStatus`
 ### Database
 The database consists of two tables, `devices` and `schedules`.
 
-
+### Mobile/Web Application Design
 ![App UI Design](https://github.com/JoashCWK/home-auto/blob/main/home-auto-app-design.png)
