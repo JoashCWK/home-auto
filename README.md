@@ -37,7 +37,7 @@ the SSS will parse the message, store the relevant information in the database, 
 It then response with a return code to `setScheduleStatus`
 
 ### Database
-The database consists of two tables, `devices` and `schedules`.
+The database consists of the following tables: `devices`, `schedules`, `rooms`, `bulk_tasks`. To do: finish this section after some more design work...
 
 ### Mobile/Web Application Design
 ![App UI Design](https://github.com/JoashCWK/home-auto/blob/main/home-auto-app-design.png)
